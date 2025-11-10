@@ -1,20 +1,104 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
+import { AuthContext } from "../AuthContex";
+import { updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router";
 
 const Register = () => {
+  const { googlesingIn, setUser, createUser, auth } = useContext(AuthContext);
+  const [loding, setLoding] = useState(false);
+  const navigate = useNavigate();
+  const handelGoogleSingIn = () => {
+    setLoding(true);
+    googlesingIn()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        toast.success("Login successful!");
+        setLoding(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoding(false);
+      });
+  };
+  const handelCreateUser = (e) => {
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+    setLoding(true);
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const photourl = e.target.photourl.value;
+    const password = e.target.password.value;
+    if (!passwordRegex.test(password)) {
+      setLoding(false);
+      toast.error(
+        "Password must include at least 1 uppercase, 1 lowercase, 1 special character, and be 6+ characters long."
+      );
+      return;
+    }
+
+    createUser(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: photourl,
+        })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photourl });
+            toast.success("Registration successful!");
+            setLoding(false);
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error(error.message);
+            setLoding(false);
+          });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error(errorMessage);
+        setLoding(false);
+
+        // ..
+      });
+  };
+  if (loding) {
+    return (
+      <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
+    );
+  }
   return (
     <div className="mx-auto flex flex-col justify-center items-center">
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-        <form>
+        <form onSubmit={handelCreateUser}>
           {" "}
           <legend className="fieldset-legend text-3xl mx-auto">
-            Login to EcoTrack
+            Join EcoTrack
           </legend>
+          <label className="label">Name</label>
+          <input
+            type="text"
+            className="input"
+            name="name"
+            placeholder="Your Name"
+          />
           <label className="label">Email</label>
           <input
             type="email"
             className="input"
             name="email"
+            placeholder="Email"
+          />
+          <label className="label">Photo URL</label>
+          <input
+            type="text"
+            className="input"
+            name="photourl"
             placeholder="Email"
           />
           <label className="label">Password</label>
@@ -24,10 +108,13 @@ const Register = () => {
             name="password"
             placeholder="Password"
           />
-          <button className="btn btn-neutral mt-4 w-full">Login</button>
+          <button className="btn btn-neutral mt-4 w-full">Register</button>
         </form>
 
-        <button className="btn bg-white text-black border-[#e5e5e5]">
+        <button
+          onClick={handelGoogleSingIn}
+          className="btn bg-white text-black border-[#e5e5e5]"
+        >
           <svg
             aria-label="Google logo"
             width="16"
@@ -55,12 +142,12 @@ const Register = () => {
               ></path>
             </g>
           </svg>
-          Login with Google
+          Google Register
         </button>
         <p>
-          don't have an account ?{" "}
-          <Link className="font-bold underline" to={"/register"}>
-            sign up
+          already have an account ?{" "}
+          <Link className="font-bold underline" to={"/login"}>
+            login
           </Link>{" "}
         </p>
       </fieldset>

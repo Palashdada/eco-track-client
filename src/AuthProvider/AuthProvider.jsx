@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AuthContext } from "../AuthContex";
 import {
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -14,16 +15,21 @@ const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
 
   const googlesingIn = () => {
-    signInWithPopup(auth, provider);
+    return signInWithPopup(auth, provider);
   };
   const singInWithEmail = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
   };
   const value = {
     googlesingIn,
     setUser,
     user,
-    signInWithEmailAndPassword,
+    singInWithEmail,
+    createUser,
+    auth,
   };
   return <AuthContext value={value}>{children}</AuthContext>;
 };

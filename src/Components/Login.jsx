@@ -1,25 +1,29 @@
 import React, { use, useContext, useState } from "react";
 import { AuthContext } from "../AuthContex";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const { googlesingIn, setUser, signInWithEmailAndPassword } =
     useContext(AuthContext);
-  const [loding, setLoding] = useState(true);
+  const navigate = useNavigate();
+  const [loding, setLoding] = useState(false);
   const handelGoogleSingIn = () => {
+    setLoding(true);
     googlesingIn()
       .then((result) => {
         const user = result.user;
         setUser(user);
         toast.success("Login successful!");
         setLoding(false);
+        navigate("/");
       })
       .catch((err) => {
         toast.error(err.message);
       });
   };
   const handelSingInEmail = (e) => {
+    setLoding(true);
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.name.value;
@@ -29,6 +33,7 @@ const Login = () => {
         setUser(user);
         toast.success("Login successful!");
         setLoding(false);
+        navigate("/");
       })
       .catch((err) => {
         toast.error(err.message);
@@ -97,6 +102,13 @@ const Login = () => {
           </svg>
           Login with Google
         </button>
+
+        <p>
+          {" "}
+          <Link className="font-bold underline" to={"/forgot-password"}>
+            Forgot Password
+          </Link>{" "}
+        </p>
         <p>
           don't have an account ?{" "}
           <Link className="font-bold underline" to={"/register"}>
