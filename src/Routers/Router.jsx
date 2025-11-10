@@ -5,6 +5,8 @@ import Challenges from "../Pages/Challenges";
 import Community from "../Pages/Community";
 import Impact from "../Pages/Impact";
 import Profile from "../Pages/Profile";
+import Login from "../Components/Login";
+import Register from "../Components/Register";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ const router = createBrowserRouter([
       { path: "/community", element: <Community /> },
       { path: "/impact", element: <Impact /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
     ],
   },
 ]);
