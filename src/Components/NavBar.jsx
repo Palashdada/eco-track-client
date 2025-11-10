@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../AuthContex";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
+  const { user, auth } = useContext(AuthContext);
+  const handelSingOut = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Sign-out successful");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   const navLinks = (
     <>
       <li>
@@ -62,17 +76,69 @@ const NavBar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             {navLinks}
+            {user ? (
+              <div>
+                {" "}
+                <li>
+                  <Link>Profile</Link>
+                </li>
+                <li>
+                  <Link>My Activities,</Link>
+                </li>
+                <li>
+                  <Link onClick={handelSingOut}>Logout</Link>
+                </li>
+              </div>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link to={"/"} className="btn btn-ghost text-xl">
+          Eco Track
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <Link to={"/login"} className="btn">
-          Login
-        </Link>
+        {user ? (
+          <div className="dropdown object-cover">
+            <div tabIndex={0} role="button" className="btn m-1 ">
+              <img
+                src={user?.photoURL}
+                alt="avatar"
+                className="w-10 h-10 rounded-full mr-2 "
+              />
+              {user?.displayName}
+            </div>
+            <ul
+              tabIndex="-1"
+              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+            >
+              <li>
+                <Link>Profile</Link>
+              </li>
+              <li>
+                <Link>My Activities,</Link>
+              </li>
+              <li>
+                <Link onClick={handelSingOut}>Logout</Link>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <div>
+            <Link to={"/login"} className="btn">
+              Login
+            </Link>
+            <Link to={"/register"} className="btn">
+              Register
+            </Link>
+          </div>
+        )}
+
+        <div></div>
       </div>
     </div>
   );
