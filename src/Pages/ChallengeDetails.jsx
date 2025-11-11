@@ -11,6 +11,7 @@ const ChallengeDetails = () => {
   const [joining, setJoining] = useState(false);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  //   console.log(user);
 
   useEffect(() => {
     fetch(`http://localhost:3000/challenges/${id}`)
@@ -34,17 +35,18 @@ const ChallengeDetails = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: user._id,
+        userId: user.uid,
         email: user.email,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         // console.log("After Joyen", data);
-        if (data.success) {
+        setJoining(false);
+        if (data) {
           toast.success("You successfully joined this challenge!");
         } else {
-          toast.error(data.message || "Failed to join challenge.");
+          toast.error(data.message);
           setJoining(false);
         }
       });
@@ -127,7 +129,7 @@ const ChallengeDetails = () => {
             >
               {joining ? "Joining..." : "Join Challenge"}
             </button>
-            {user.email === challenge.createdBy && (
+            {user?.email === challenge.createdBy && (
               <div>
                 <button
                   className="btn btn-warning"

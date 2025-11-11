@@ -40,7 +40,7 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/my-activities"
+          to="/myactivities"
           className={({ isActive }) =>
             isActive ? "text-green-600 font-semibold" : ""
           }
