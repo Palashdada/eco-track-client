@@ -16,6 +16,11 @@ const MyActivities = () => {
         setLoading(false);
       });
   }, [user]);
+  if (loading) {
+    return (
+      <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
+    );
+  }
   return (
     <div className="w-11/12 mx-auto my-10">
       <h2 className="text-3xl font-bold text-green-700 text-center mb-6">
@@ -28,7 +33,7 @@ const MyActivities = () => {
             <p>Status: {a.status}</p>
             <p>Progress: {a.progress}%</p>
             <Link
-              to={`/my-activities/${a._id}`}
+              to={`/myactivities/${a._id}`}
               className="btn btn-sm btn-success mt-2"
             >
               View Details
