@@ -48,6 +48,16 @@ const NavBar = () => {
           My Activities
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/challenges/add"
+          className={({ isActive }) =>
+            isActive ? "text-green-600 font-semibold" : ""
+          }
+        >
+          Create Challenge
+        </NavLink>
+      </li>
     </>
   );
   return (
