@@ -38,10 +38,6 @@ const AddChallenge = () => {
           navigate("/challenges");
           setLoading(false);
           console.log(data.success);
-        } else {
-          toast.error(data.message);
-          console.log(data.message);
-          setLoading(false);
         }
       });
   };

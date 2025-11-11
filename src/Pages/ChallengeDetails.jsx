@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { AuthContext } from "../AuthContex";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ChallengeDetails = () => {
   const { id } = useParams();
@@ -9,6 +10,7 @@ const ChallengeDetails = () => {
   const [loding, setLoding] = useState(true);
   const [joining, setJoining] = useState(false);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/challenges/${id}`)
@@ -46,6 +48,37 @@ const ChallengeDetails = () => {
           setJoining(false);
         }
       });
+  };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to recover this challenge!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/challenges/${id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userEmail: user.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data) {
+              Swal.fire("Deleted!", data.message, "success");
+              navigate("/challenges");
+            } else {
+              Swal.fire("Error!", data.message, "error");
+            }
+          })
+          .catch(() => {
+            Swal.fire("Error!", "Failed to delete challenge.", "error");
+          });
+      }
+    });
   };
   return (
     <div className="w-11/12 mx-auto my-10">
@@ -86,7 +119,7 @@ const ChallengeDetails = () => {
             {new Date(challenge.endDate).toLocaleDateString()}
           </p>
 
-          <div className="card-actions mt-4">
+          <div className="card-actions mt-4 ">
             <button
               disabled={joining}
               onClick={handleJoin}
@@ -94,6 +127,22 @@ const ChallengeDetails = () => {
             >
               {joining ? "Joining..." : "Join Challenge"}
             </button>
+            {user.email === challenge.createdBy && (
+              <div>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => navigate(`/challenges/edit/${challenge._id}`)}
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => handleDelete(challenge._id)}
+                  className="btn btn-error"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
