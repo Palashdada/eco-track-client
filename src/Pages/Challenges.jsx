@@ -34,7 +34,7 @@ const Challenges = () => {
   return (
     <div>
       <h2 className="text-3xl font-bold text-green-700 mb-8 text-center">
-        Active Challenges
+        Challenges
       </h2>
       <div className="flex justify-center mb-6">
         <select

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-const UpcomingEvents = () => {
+const Event = () => {
   const [events, setEvents] = useState([]);
   const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/upcoming-events")
+    fetch("http://localhost:3000/all-events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -50,4 +50,4 @@ const UpcomingEvents = () => {
   );
 };
 
-export default UpcomingEvents;
+export default Event;

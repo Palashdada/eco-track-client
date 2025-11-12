@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const Banners = () => {
   const [loging, setLoding] = useState(true);
@@ -20,21 +21,21 @@ const Banners = () => {
   return (
     <div>
       <div className="carousel w-full relative ">
-        {banner.map((b, index) => (
+        {banner.map((a, index) => (
           <div
             key={index}
             id={`item${index + 1}`}
             className="carousel-item w-full"
           >
-            <img src={b.imageUrl} className="w-full h-[420px] object-cover" />
+            <img src={a.imageUrl} className="w-full h-[420px] object-cover" />
             <div className=" absolute bottom-2 flex flex-col justify-center items-center text-center p-4 w-full  ">
               <h2 className="text-3xl font-bold mb-3 text-white max-w-xl">
-                {b.title}
+                {a.title}
               </h2>
-              <p className="mb-4  text-white max-w-xl">{b.description}</p>
-              <a href={`/challenges/${b._id}`} className="btn btn-primary">
+              <p className="mb-4  text-white max-w-xl">{a.description}</p>
+              <Link to={`/challenges/${a._id}`} className="btn btn-primary">
                 View Challenge
-              </a>
+              </Link>
             </div>
           </div>
         ))}

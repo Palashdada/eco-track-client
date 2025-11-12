@@ -54,6 +54,12 @@ const ActiveChallenges = () => {
           </div>
         ))}
       </div>
+      <Link
+        to={"/challenges"}
+        className="btn btn-success mx-auto flex justify-center items-center mt-5 w-full"
+      >
+        See All
+      </Link>
     </div>
   );
 };

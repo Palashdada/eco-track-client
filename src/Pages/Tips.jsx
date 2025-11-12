@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-const RecentTips = () => {
+const Tips = () => {
   const [tips, setTips] = useState([]);
   const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/recent-tips")
+    fetch("http://localhost:3000/all-tips")
       .then((res) => res.json())
       .then((data) => {
         setTips(data);
@@ -23,16 +23,17 @@ const RecentTips = () => {
         No community tips available.
       </div>
     );
+  console.log(tips);
   return (
     <div className="py-5">
       <h2 className="text-3xl font-bold text-green-700 text-center mb-8">
-        Recent Community Tips
+        Tips
       </h2>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-11/12 mx-auto">
         {tips.map((tip, index) => (
           <div
-            key={index}
+            key={tip._id}
             className="border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-5 bg-white"
           >
             <h3 className="text-xl font-semibold mb-2 text-green-700">
@@ -42,19 +43,13 @@ const RecentTips = () => {
             <div className="flex justify-between text-sm text-gray-500 border-t pt-2">
               <p> {tip.authorName}</p>
               <p>{tip.upvotes}</p>
-              {new Date(tip.createdAt).toLocaleDateString()}
+              {new Date(tip?.createdAt).toLocaleDateString()}
             </div>
           </div>
         ))}
       </div>
-      <Link
-        to={"/challenges"}
-        className="btn btn-success mx-auto flex justify-center items-center mt-5 w-full"
-      >
-        See All
-      </Link>
     </div>
   );
 };
 
-export default RecentTips;
+export default Tips;

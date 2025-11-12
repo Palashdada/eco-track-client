@@ -1,6 +1,6 @@
 import React, { use, useContext, useState } from "react";
 import { AuthContext } from "../AuthContex";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
     useContext(AuthContext);
   const navigate = useNavigate();
   const [loding, setLoding] = useState(false);
+  const location = useLocation();
   const handelGoogleSingIn = () => {
     setLoding(true);
     googlesingIn()
@@ -16,7 +17,7 @@ const Login = () => {
         setUser(user);
         toast.success("Login successful!");
         setLoding(false);
-        navigate("/");
+        navigate(location.state || "/");
       })
       .catch((err) => {
         toast.error(err.message);

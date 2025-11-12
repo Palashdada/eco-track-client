@@ -40,6 +40,26 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
+          to="/alltips"
+          className={({ isActive }) =>
+            isActive ? "text-green-600 font-semibold" : ""
+          }
+        >
+          Tips
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/allevents"
+          className={({ isActive }) =>
+            isActive ? "text-green-600 font-semibold" : ""
+          }
+        >
+          Events
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/myactivities"
           className={({ isActive }) =>
             isActive ? "text-green-600 font-semibold" : ""
@@ -48,16 +68,23 @@ const NavBar = () => {
           My Activities
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/challenges/add"
-          className={({ isActive }) =>
-            isActive ? "text-green-600 font-semibold" : ""
-          }
-        >
-          Create Challenge
-        </NavLink>
-      </li>
+      {user ? (
+        <>
+          {" "}
+          <li>
+            <NavLink
+              to="/challenges/add"
+              className={({ isActive }) =>
+                isActive ? "text-green-600 font-semibold" : ""
+              }
+            >
+              Create Challenge
+            </NavLink>
+          </li>
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
   return (
