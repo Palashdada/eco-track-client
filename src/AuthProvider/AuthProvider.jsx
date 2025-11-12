@@ -9,11 +9,13 @@ import {
 } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import app from "../../firebase.config";
+import Loding from "../Components/Loding";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
+  const [loding, setLoding] = useState(false);
 
   const googlesingIn = () => {
     return signInWithPopup(auth, provider);
@@ -32,8 +34,13 @@ const AuthProvider = ({ children }) => {
         setUser(null);
       }
     });
+
     return () => unsubscribe();
   }, [auth]);
+
+  if (loding) {
+    return <Loding></Loding>;
+  }
   const value = {
     googlesingIn,
     setUser,
@@ -41,6 +48,7 @@ const AuthProvider = ({ children }) => {
     singInWithEmail,
     createUser,
     auth,
+    setLoding,
   };
   return <AuthContext value={value}>{children}</AuthContext>;
 };

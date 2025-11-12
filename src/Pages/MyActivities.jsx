@@ -9,7 +9,9 @@ const MyActivities = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    fetch(`http://localhost:3000/my-activities?email=${user.email}`)
+    fetch(
+      `https://eco-track-server-sable.vercel.app/my-activities?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setActivities(data);

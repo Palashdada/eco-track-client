@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import SkeletonCard from "../Components/SkeletonCard";
 
 const Challenges = () => {
   const [challenges, setChallenges] = useState([]);
@@ -7,7 +8,7 @@ const Challenges = () => {
   const [category, setCategory] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:3000/all-challenges")
+    fetch("https://eco-track-server-sable.vercel.app/all-challenges")
       .then((res) => res.json())
       .then((data) => {
         setChallenges(data);
@@ -16,7 +17,11 @@ const Challenges = () => {
   }, []);
   if (loding) {
     return (
-      <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...Array(6)].map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
     );
   }
   if (challenges.length === 0) {

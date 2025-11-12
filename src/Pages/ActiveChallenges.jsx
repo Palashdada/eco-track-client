@@ -3,20 +3,20 @@ import { Link } from "react-router";
 
 const ActiveChallenges = () => {
   const [active, setActive] = useState([]);
-  const [loding, setLoding] = useState(true);
+  // const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/active-challenges")
+    fetch("https://eco-track-server-sable.vercel.app/active-challenges")
       .then((res) => res.json())
       .then((data) => {
         setActive(data);
         setLoding(false);
       });
   }, []);
-  if (loding) {
-    return (
-      <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
-    );
-  }
+  // if (loding) {
+  //   return (
+  //     <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
+  //   );
+  // }
   if (active.length === 0) {
     return (
       <div className="text-center py-10 text-gray-500">

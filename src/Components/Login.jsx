@@ -1,4 +1,4 @@
-import React, { use, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../AuthContex";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ const Login = () => {
     useContext(AuthContext);
   const navigate = useNavigate();
   const [loding, setLoding] = useState(false);
+
   const location = useLocation();
   const handelGoogleSingIn = () => {
     setLoding(true);

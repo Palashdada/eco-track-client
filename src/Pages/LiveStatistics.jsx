@@ -4,7 +4,7 @@ const LiveStatistics = () => {
   const [statistics, setStatistics] = useState(null);
   const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/live-statics")
+    fetch("https://eco-track-server-sable.vercel.app/live-statics")
       .then((res) => res.json())
       .then((data) => {
         setStatistics(data);

@@ -14,7 +14,7 @@ const ChallengeDetails = () => {
   //   console.log(user);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/challenges/${id}`)
+    fetch(`https://eco-track-server-sable.vercel.app/challenges/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setChallenge(data);
@@ -29,7 +29,7 @@ const ChallengeDetails = () => {
   const handleJoin = () => {
     setJoining(true);
 
-    fetch(`http://localhost:3000/challenges/join/${id}`, {
+    fetch(`https://eco-track-server-sable.vercel.app/challenges/join/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const ChallengeDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/challenges/${id}`, {
+        fetch(`https://eco-track-server-sable.vercel.app/challenges/${id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userEmail: user.email }),

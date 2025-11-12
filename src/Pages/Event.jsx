@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import SkeletonCard from "../Components/SkeletonCard";
 
 const Event = () => {
   const [events, setEvents] = useState([]);
   const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/all-events")
+    fetch("https://eco-track-server-sable.vercel.app/all-events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -14,7 +15,11 @@ const Event = () => {
   }, []);
   if (loding) {
     return (
-      <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...Array(6)].map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
     );
   }
   return (

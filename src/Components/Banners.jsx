@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../AuthContex";
 
 const Banners = () => {
-  const [loging, setLoding] = useState(true);
   const [banner, setBanner] = useState([]);
+  const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/hero-challenges")
+    setLoding(true);
+    fetch("https://eco-track-server-sable.vercel.app/hero-challenges")
       .then((res) => res.json())
       .then((data) => {
         setBanner(data);
         setLoding(false);
       });
   }, []);
-  if (loging) {
+  if (loding) {
     return (
       <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
     );
   }
-  console.log(banner);
+
   return (
     <div>
       <div className="carousel w-full relative ">

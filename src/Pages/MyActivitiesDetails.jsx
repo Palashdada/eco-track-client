@@ -8,7 +8,7 @@ const MyActivitiesDetails = () => {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:3000/my-activities/${id}`)
+    fetch(`https://eco-track-server-sable.vercel.app/my-activities/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setActivity(data);
@@ -21,11 +21,14 @@ const MyActivitiesDetails = () => {
     );
   }
   const handleUpdateStatus = () => {
-    fetch(`http://localhost:3000/user-challenges/${id}/status`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    })
+    fetch(
+      `https://eco-track-server-sable.vercel.app/user-challenges/${id}/status`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data) {

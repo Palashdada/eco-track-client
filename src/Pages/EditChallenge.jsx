@@ -12,7 +12,7 @@ const EditChallenge = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/challenges/${id}`)
+    fetch(`https://eco-track-server-sable.vercel.app/challenges/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setChallenge(data);
@@ -38,7 +38,7 @@ const EditChallenge = () => {
 
     setLoading(true);
 
-    fetch(`http://localhost:3000/challenges/${id}`, {
+    fetch(`https://eco-track-server-sable.vercel.app/challenges/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

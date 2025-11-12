@@ -26,7 +26,7 @@ const AddChallenge = () => {
 
     setLoading(true);
 
-    fetch("http://localhost:3000/challenges/add", {
+    fetch("https://eco-track-server-sable.vercel.app/challenges/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

@@ -3,20 +3,21 @@ import { Link } from "react-router";
 
 const UpcomingEvents = () => {
   const [events, setEvents] = useState([]);
-  const [loding, setLoding] = useState(true);
+
+  // const [loding, setLoding] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/upcoming-events")
+    fetch("https://eco-track-server-sable.vercel.app/upcoming-events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
         setLoding(false);
       });
   }, []);
-  if (loding) {
-    return (
-      <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
-    );
-  }
+  // if (loding) {
+  //   return (
+  //     <span className="loading loading-bars loading-xl flex justify-center items-center mx-auto"></span>
+  //   );
+  // }
   return (
     <div className="my-5">
       <h2 className="text-3xl font-bold text-green-700 text-center mb-8">
