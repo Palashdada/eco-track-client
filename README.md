@@ -1,16 +1,91 @@
-# React + Vite
+💚 eco-track-client — README.md
+🌐 Live Link
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 https://dulcet-bienenstitch-610227.netlify.app/
 
-Currently, two official plugins are available:
+📝 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+এই প্রজেক্টটি Eco Track প্ল্যাটফর্মের client-side যেখানে ব্যবহারকারীরা environment-friendly activities track করতে পারে, events দেখতে পারে এবং নিজের account manage করতে পারে।
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React
+
+Tailwind CSS
+
+Axios
+
+Firebase Auth
+
+React Router
+
+⭐ Features
+
+Login/Register
+
+Protected Routes
+
+Event List & Details
+
+User Dashboard
+
+Fully responsive design
+
+📦 Dependencies
+
+react
+
+react-router-dom
+
+firebase
+
+axios
+
+tailwindcss
+
+⚙️ How to Run
+npm install
+npm run dev
+
+🌱 eco-track-server — README.md
+📝 Overview
+
+Eco Track এর backend/server-side, যেখানে API, database operations, authentication এবং event management করা হয়।
+
+🛠️ Tech Stack
+
+Node.js
+
+Express.js
+
+MongoDB
+
+JWT
+
+CORS
+
+⭐ Features
+
+JWT Authentication
+
+User CRUD
+
+Event CRUD
+
+Secure API
+
+Environment-based config
+
+📦 Dependencies
+
+express
+
+mongodb
+
+cors
+
+dotenv
+
+jsonwebtoken
